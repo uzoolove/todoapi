@@ -4,7 +4,7 @@ const options = {
   info: {
     version: '1.0.0',
     title: 'TODO API', 
-    description: '할일 목록 API Server입니다.\n기본 기능은 꼭 구현해야 하는 기능이고 다른 기능을 더 추가하고 싶으면 요청하세요.', 
+    description: '할일 목록 API Server입니다.', 
   },
   host: 'localhost:33088',
   schemes: ['http'],
@@ -16,7 +16,7 @@ const options = {
     },
     {
       name: '부가 기능',
-      description: '추가된 기능',
+      description: '',
     },
   ],
   definitions: {
