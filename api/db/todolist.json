@@ -17,25 +17,16 @@
       "updatedAt": "2023.10.19 11:22:15"
     },
     {
-      "_id": 3,
-      "title": "React 공부",
-      "content": "이번에는 정말 제대로 배워보자.",
-      "done": false,
-      "createdAt": "2023.10.25 10:12:45",
-      "updatedAt": "2023.10.25 18:34:17"
-    },
-    {
-      "_id": 4,
-      "title": "React 프로젝트",
-      "content": "오프라인이라 기대가 큼",
-      "done": false,
-      "createdAt": "2023.10.27 10:13:34",
-      "updatedAt": "2023.10.27 10:13:34"
+      "_id": 5,
+      "title": "postman 공부",
+      "content": "API 서버 사용하려면 공부해야함.",
+      "createdAt": "2023.10.28 20:57:12",
+      "updatedAt": "2023.10.28 20:57:12"
     }
   ],
   "users": [],
   "nextId": {
-    "items": 5,
+    "items": 6,
     "users": 1
   }
 }

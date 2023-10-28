@@ -20,16 +20,22 @@ const options = {
     },
   ],
   definitions: {
-    Error500: {
+    Error422: {
       ok: 0, 
       error: {
-        message: '서버 오류'
+        message: '"title" 항목은 필수입니다.'
       }
     },
     Error404: {
       ok: 0, 
       error: {
-        message: 'Not Found'
+        message: '/api/todolist/485734 리소스를 찾을 수 없습니다.'
+      }
+    },
+    Error500: {
+      ok: 0, 
+      error: {
+        message: '서버 오류'
       }
     },
     ItemRequest: {

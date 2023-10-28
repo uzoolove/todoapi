@@ -25,16 +25,27 @@ app.use(
   })
 );
 
-app.use('/api', indexRouter, function(req, res, next) {
-  res.set('Content-Type', 'text/html;charset=utf-8');
-  res.end('<div><a href="/apidocs">API 문서</a>에서 사용법을 확인하세요.</div>');
-});
+app.use('/api', indexRouter);
 
+// 404 에러
 app.use(function(req, res, next){
-  res.set('Content-Type', 'text/html;charset=utf-8');
-  res.end('<h1>요청하신 페이지를 찾을 수 없습니다.</h1><div>URL을 확인하세요.</div><div><a href="/">홈으로</div>');
+  console.log(req.url);
+  const err = new Error(`${req.url} 리소스를 찾을 수 없습니다.`);
+  err.status = 404;
+  next(err);
 });
 
-// module.exports = app;
+// 500 에러
+app.use(function(err, req, res, next){
+  console.error(err.stack);
+  const status = err.status || 500;
+
+  let message = '서버 오류';
+  if(status !== 500){
+    message = err.message;
+  }
+
+  res.status(status).json({ok: 0, error: {message}});  
+});
 
 export default app;

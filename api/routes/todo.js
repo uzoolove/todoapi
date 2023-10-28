@@ -1,5 +1,8 @@
+import { body, validationResult } from 'express-validator';
+
 import model from '../models/todo.js';
 import express from 'express';
+
 const router = express.Router();
 
 // 할일 목록 조회
@@ -33,13 +36,15 @@ router.get('/todolist', function(req, res, next) {
     const result = model.list(req.query);
     res.json({ok: 1, ...result});
   }catch(err){
-    console.error(err);
-    res.status(500).json({ok: 0, error: {message: '서버 오류'}});
+    next(err);
   }
 });
 
 // 할일 등록
-router.post('/todolist', function(req, res, next) {
+router.post('/todolist', [
+  body('title').trim().notEmpty(),
+  body('content').trim().notEmpty(),
+], function(req, res, next) {
   // #swagger.tags = ['필수 기능']
   // #swagger.summary  = '할일 등록'
   // #swagger.description = '할일을 등록합니다.<br>title, content를 전달하면 할일을 등록한 후 등록된 할일을 반환합니다.'
@@ -56,17 +61,28 @@ router.post('/todolist', function(req, res, next) {
       description: '성공',
       schema: { $ref: '#/definitions/ItemResponse' }
     },
+    #swagger.responses[422] = {
+      description: '파라미터 검증 실패',
+      schema: { $ref: '#/definitions/Error422' }
+    },
     #swagger.responses[500] = {
       description: '서버 에러',
       schema: { $ref: '#/definitions/Error500' }
     }
   */
+
   try{
-    const item = model.create(req.body);
-    res.json({ok: 1, item});
+    const result = validationResult(req);
+    if(result.isEmpty()){
+      const item = model.create(req.body);
+      res.json({ok: 1, item});
+    }else{
+      const error = new Error(`"${result.errors[0].path}" 항목은 필수입니다.`);
+      error.status = 422;
+      next(error);
+    }    
   }catch(err){
-    console.error(err);
-    res.status(500).json({ok: 0, error: {message: '서버 오류'}});
+    next(err);
   }
 });
 
@@ -94,11 +110,10 @@ router.get('/todolist/:_id', function(req, res, next) {
     if(item){
       res.json({ok: 1, item});
     }else{
-      res.status(404).json({ok: 0, error: {message: 'Not Found'}});
+      next();
     }
   }catch(err){
-    console.error(err);
-    res.status(500).json({ok: 0, error: {message: '서버 오류'}});
+    next(err);
   }
 });
 
@@ -134,11 +149,10 @@ router.patch('/todolist/:_id', function(req, res, next) {
     if(item){
       res.json({ok: 1, item});
     }else{
-      res.status(404).json({ok: 0, error: {message: 'Not Found'}});
+      next();
     }
   }catch(err){
-    console.error(err);
-    res.status(500).json({ok: 0, error: {message: '서버 오류'}});
+    next(err);
   }
 });
 
@@ -161,8 +175,7 @@ router.delete('/todolist/init', async function(req, res, next) {
     const result = await model.init();
     res.json({ok: 1, ...result});
   }catch(err){
-    console.error(err);
-    res.status(500).json({ok: 0, error: {message: '서버 오류'}});
+    next(err);
   }
 });
 
@@ -190,13 +203,11 @@ router.delete('/todolist/:_id', function(req, res, next) {
     if(result > 0){
       res.json({ok: 1});
     }else{
-      res.status(404).json({ok: 0, error: {message: 'Not Found'}});
+      next();
     }
   }catch(err){
-    console.error(err);
-    res.status(500).json({ok: 0, error: {message: '서버 오류'}});
+    next(err);
   }
 });
-
 
 export default router;

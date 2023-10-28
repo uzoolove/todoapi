@@ -83,6 +83,12 @@
               "$ref": "#/definitions/ItemResponse"
             }
           },
+          "422": {
+            "description": "파라미터 검증 실패",
+            "schema": {
+              "$ref": "#/definitions/Error422"
+            }
+          },
           "500": {
             "description": "서버 에러",
             "schema": {
@@ -245,7 +251,7 @@
     }
   },
   "definitions": {
-    "Error500": {
+    "Error422": {
       "type": "object",
       "properties": {
         "ok": {
@@ -257,7 +263,7 @@
           "properties": {
             "message": {
               "type": "string",
-              "example": "서버 오류"
+              "example": "\"title\" 항목은 필수입니다."
             }
           }
         }
@@ -275,7 +281,25 @@
           "properties": {
             "message": {
               "type": "string",
-              "example": "Not Found"
+              "example": "/api/todolist/485734 리소스를 찾을 수 없습니다."
+            }
+          }
+        }
+      }
+    },
+    "Error500": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "number",
+          "example": 0
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "example": "서버 오류"
             }
           }
         }
