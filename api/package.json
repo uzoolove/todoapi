@@ -1,0 +1,23 @@
+{
+  "name": "todoapi",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prestart": "node ./swagger.js",
+    "start": "node ./bin/www.js",
+    "dev": "nodemon ./bin/www.js"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "lodash": "^4.17.21",
+    "lowdb": "^6.1.1",
+    "moment": "^2.29.4",
+    "morgan": "~1.9.1",
+    "swagger-autogen": "^2.23.6",
+    "swagger-ui-express": "^5.0.0"
+  }
+}

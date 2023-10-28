@@ -1,0 +1,448 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "TODO API",
+    "description": "할일 목록 API Server입니다.\n기본 기능은 꼭 구현해야 하는 기능이고 다른 기능을 더 추가하고 싶으면 요청하세요."
+  },
+  "host": "localhost:33088",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "필수 기능",
+      "description": "기본으로 구현해야 하는 기능"
+    },
+    {
+      "name": "부가 기능",
+      "description": "추가된 기능"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/todolist": {
+      "get": {
+        "tags": [
+          "필수 기능"
+        ],
+        "summary": "할일 목록 조회",
+        "description": "할일 목록을 조회합니다.<br>page, limit 파라미터는 선택사항이며 전달하지 않으면 전체 할일 목록을 조회합니다.<br>page만 전달할 경우 limit 값은 기본 10으로 지정됩니다.",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "type": "number",
+            "description": "조회할 페이지"
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "type": "number",
+            "description": "한 페이지에 보여줄 개수"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "schema": {
+              "$ref": "#/definitions/ListResponse"
+            }
+          },
+          "500": {
+            "description": "서버 에러",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "필수 기능"
+        ],
+        "summary": "할일 등록",
+        "description": "할일을 등록합니다.<br>title, content를 전달하면 할일을 등록한 후 등록된 할일을 반환합니다.",
+        "parameters": [
+          {
+            "name": "item",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ItemRequest"
+            },
+            "description": "등록할 할일 정보를 담은 객체"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "schema": {
+              "$ref": "#/definitions/ItemResponse"
+            }
+          },
+          "500": {
+            "description": "서버 에러",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/todolist/{_id}": {
+      "get": {
+        "tags": [
+          "필수 기능"
+        ],
+        "summary": "할일 상세 조회",
+        "description": "할일 상세 정보를 조회합니다.",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "schema": {
+              "$ref": "#/definitions/ItemResponse"
+            }
+          },
+          "404": {
+            "description": "요청한 자원을 찾을 수 없음",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "서버 에러",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "필수 기능"
+        ],
+        "summary": "할일 수정",
+        "description": "할일을 수정합니다. 할일을 수정한 후 수정된 할일을 반환합니다.<br>바디로 전달한 속성에 대해서만 수정되고 전달하지 않은 속성은 유지됩니다.",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ItemUpdateRequest"
+            },
+            "description": "수정할 속성만 담은 객체"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "schema": {
+              "$ref": "#/definitions/ItemResponse"
+            }
+          },
+          "404": {
+            "description": "요청한 자원을 찾을 수 없음",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "서버 에러",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "필수 기능"
+        ],
+        "summary": "할일 삭제",
+        "description": "할일을 삭제합니다.",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "required": [
+                "ok"
+              ],
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "요청한 자원을 찾을 수 없음",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "서버 에러",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/todolist/init": {
+      "delete": {
+        "tags": [
+          "부가 기능"
+        ],
+        "summary": "데이터 베이스 초기화",
+        "description": "데이터 베이스를 초기화 합니다.<br>기존 데이터는 모두 삭제된 후 할일 목록 4개가 추가되고 추가된 할일 목록을 반환합니다.",
+        "responses": {
+          "200": {
+            "description": "성공",
+            "schema": {
+              "$ref": "#/definitions/ListWithoutPaginationResponse"
+            }
+          },
+          "500": {
+            "description": "서버 에러",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Error500": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "number",
+          "example": 0
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "example": "서버 오류"
+            }
+          }
+        }
+      }
+    },
+    "Error404": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "number",
+          "example": 0
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "example": "Not Found"
+            }
+          }
+        }
+      }
+    },
+    "ItemRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "JS 프로젝트 완성"
+        },
+        "content": {
+          "type": "string",
+          "example": "화요일까지 완료해야 함."
+        }
+      }
+    },
+    "ItemUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "JS 프로젝트 완성"
+        },
+        "content": {
+          "type": "string",
+          "example": "화요일까지 완료해야 함."
+        },
+        "done": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "ItemResponse": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "number",
+          "example": 1
+        },
+        "item": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "number",
+              "example": 5
+            },
+            "title": {
+              "type": "string",
+              "example": "JS 프로젝트 완성"
+            },
+            "content": {
+              "type": "string",
+              "example": "화요일까지 완료해야 함."
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2023.10.30 11:34:31"
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2023.10.30 11:34:31"
+            }
+          }
+        }
+      }
+    },
+    "ListResponse": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "number",
+          "example": 1
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "number",
+                "example": 3
+              },
+              "title": {
+                "type": "string",
+                "example": "React 공부"
+              },
+              "done": {
+                "type": "boolean",
+                "example": false
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2023.10.25 10:12:45"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2023.10.25 18:34:17"
+              }
+            }
+          }
+        },
+        "pagination": {
+          "type": "object",
+          "properties": {
+            "page": {
+              "type": "number",
+              "example": 2
+            },
+            "limit": {
+              "type": "number",
+              "example": 2
+            },
+            "total": {
+              "type": "number",
+              "example": 5
+            },
+            "totalPages": {
+              "type": "number",
+              "example": 3
+            }
+          }
+        }
+      }
+    },
+    "ListWithoutPaginationResponse": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "number",
+          "example": 1
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "number",
+                "example": 3
+              },
+              "title": {
+                "type": "string",
+                "example": "React 공부"
+              },
+              "done": {
+                "type": "boolean",
+                "example": false
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2023.10.25 10:12:45"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2023.10.25 18:34:17"
+              }
+            }
+          }
+        },
+        "pagination": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    }
+  }
+}
