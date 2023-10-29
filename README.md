@@ -2,7 +2,7 @@
 * GitHub URL: (https://github.com/uzoolove/todoapi)
 
 ## Github 레퍼지토리 복사
-* VSCode의 View > Source Control > Clone Repository 선택
+* VSCode의 File > New Window > View > Source Control > Clone Repository 선택
 * <nohyper>https</nohyper>://github.com/uzoolove/todoapi.git 입력
 * 복사할 적당한 폴더 선택 후 Select as Repository Destination 선택
 * Open 선택
