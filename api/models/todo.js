@@ -8,8 +8,8 @@ import initData from '../db/initData.js';
 let db;
 // DB 초기화
 async function initDB(){
-  db = await JSONSyncPreset('db/todolist.json', initData);
-  await db.write();
+  db = await JSONSyncPreset('db/todolist.json', _.cloneDeep(initData));
+  db.write();
 }
 initDB();
 
