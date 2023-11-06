@@ -19,7 +19,8 @@ app.use('/apidocs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(
   cors({
     origin: [
-      /^https?:\/\/localhost/
+      /^https?:\/\/localhost/,
+      /^https?:\/\/127.0.0.1/
     ],
     credentials: true,
   })
