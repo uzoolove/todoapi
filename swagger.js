@@ -1,4 +1,9 @@
 import swaggerAutogen from 'swagger-autogen';
+import moment from 'moment';
+
+function getTime(days = 0, hours = 0) {
+  return moment().add(days, 'd').add(hours, 'h').format('YYYY.MM.DD HH:mm:ss');
+}
 
 const options = {
   info: {
@@ -11,8 +16,8 @@ const options = {
   basePath: '/api',
   tags: [
     {
-      name: '필수 기능',
-      description: '기본으로 구현해야 하는 기능',
+      name: 'Todo List',
+      description: '할일 목록 관리',
     },
     {
       name: '부가 기능',
@@ -29,7 +34,7 @@ const options = {
     Error404: {
       ok: 0, 
       error: {
-        message: '/api/todolist/485734 리소스를 찾을 수 없습니다.'
+        message: '/api/todolist/{_id} 리소스를 찾을 수 없습니다.'
       }
     },
     Error500: {
@@ -39,33 +44,34 @@ const options = {
       }
     },
     ItemRequest: {
-      title: 'JS 프로젝트 완성',
-      content: '화요일까지 완료해야 함.'
+      title: 'TodoList 프로젝투 완성',
+      content: '이번주에 진핼항 수업 내용'
     },
     ItemUpdateRequest: {
-      title: 'JS 프로젝트 완성',
-      content: '화요일까지 완료해야 함.',
+      title: 'TodoList 프로젝트 완성',
+      content: '이번주에 진행할 수업 내용',
       done: true
     },
     ItemResponse: {
       ok: 1,
       item: {
         _id: 5,
-        title: 'JS 프로젝트 완성',
-        content: '화요일까지 완료해야 함.',
-        createdAt: '2023.10.30 11:34:31',
-        updatedAt: '2023.10.30 11:34:31'
-      }      
+        title: 'Javascript 공부',
+        content: '열심히 하자',
+        done: false,
+        createdAt: getTime(),
+        updatedAt: getTime(),
+      }
     },
     ListResponse: {
       ok: 1,
       items: [
         {
           _id: 3,
-          title: "React 공부",
+          title: 'Promise 복습',
           done: false,
-          createdAt: "2023.10.25 10:12:45",
-          updatedAt: "2023.10.25 18:34:17"
+          createdAt: getTime(-2, 1),
+          updatedAt: getTime(-2, 5),
         }
       ],
       pagination: {
@@ -80,10 +86,10 @@ const options = {
       items: [
         {
           _id: 3,
-          title: "React 공부",
+          title: 'Promise 복습',
           done: false,
-          createdAt: "2023.10.25 10:12:45",
-          updatedAt: "2023.10.25 18:34:17"
+          createdAt: getTime(-2, 1),
+          updatedAt: getTime(-2, 5),
         }
       ],
       pagination: {}

@@ -18,4 +18,6 @@ cd api
 npm i
 npm start
 ```
-* api 서버 사용방법: http://localhost:33088/apidocs
+
+## api 문서 확인
+* http://localhost:33088/apidocs

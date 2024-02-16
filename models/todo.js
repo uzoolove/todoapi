@@ -42,11 +42,12 @@ const todo = {
   },
   // 할일 등록
   create(todo){
-    const nextId = db.data.nextId.items++;
+    const nextId = ++db.data.nextId.items;
     let createdAt = moment().format('YYYY.MM.DD HH:mm:ss');
     const newTodo = {
       _id: nextId,
-      ...todo,      
+      ...todo,
+      done: false,
       createdAt,
       updatedAt: createdAt,
     };

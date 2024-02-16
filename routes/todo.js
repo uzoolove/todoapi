@@ -7,9 +7,9 @@ const router = express.Router();
 
 // 할일 목록 조회
 router.get('/todolist', function(req, res, next) {
-  // #swagger.tags = ['필수 기능']
+  // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 목록 조회'
-  // #swagger.description = '할일 목록을 조회합니다.<br>page, limit 파라미터는 선택사항이며 전달하지 않으면 전체 할일 목록을 조회합니다.<br>page만 전달할 경우 limit 값은 기본 10으로 지정됩니다.'
+  // #swagger.description = '할일 목록을 조회합니다.<br>page, limit 파라미터는 선택사항이며 page를 전달하지 않으면 전체 할일 목록을 조회합니다.<br>page만 전달할 경우 limit 값은 기본 10으로 지정됩니다.'
   /* 
     #swagger.parameters['page'] = {
       required: 'false',
@@ -45,7 +45,7 @@ router.post('/todolist', [
   body('title').trim().notEmpty(),
   body('content').trim().notEmpty(),
 ], function(req, res, next) {
-  // #swagger.tags = ['필수 기능']
+  // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 등록'
   // #swagger.description = '할일을 등록합니다.<br>title, content를 전달하면 할일을 등록한 후 등록된 할일을 반환합니다.'
   /* 
@@ -88,7 +88,7 @@ router.post('/todolist', [
 
 // 할일 상세 조회
 router.get('/todolist/:_id', function(req, res, next) {
-  // #swagger.tags = ['필수 기능']
+  // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 상세 조회'
   // #swagger.description = '할일 상세 정보를 조회합니다.'
   /* 
@@ -119,7 +119,7 @@ router.get('/todolist/:_id', function(req, res, next) {
 
 // 할일 수정
 router.patch('/todolist/:_id', function(req, res, next) {
-  // #swagger.tags = ['필수 기능']
+  // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 수정'
   // #swagger.description = '할일을 수정합니다. 할일을 수정한 후 수정된 할일을 반환합니다.<br>바디로 전달한 속성에 대해서만 수정되고 전달하지 않은 속성은 유지됩니다.'
   /* 
@@ -181,7 +181,7 @@ router.delete('/todolist/init', async function(req, res, next) {
 
 // 할일 삭제
 router.delete('/todolist/:_id', function(req, res, next) {
-  // #swagger.tags = ['필수 기능']
+  // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 삭제'
   // #swagger.description = '할일을 삭제합니다.'
   /* 

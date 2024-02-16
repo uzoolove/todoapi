@@ -3,10 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "nodemonConfig": {
+    "ignore": [
+      "db/todolist.json"
+    ]
+  },
   "scripts": {
     "prestart": "node ./swagger.js",
-    "start": "node ./bin/www.js",
-    "dev": "nodemon ./bin/www.js"
+    "start": "nodemon ./bin/www.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
