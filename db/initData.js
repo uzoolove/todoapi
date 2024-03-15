@@ -9,20 +9,12 @@ console.log(getTime(-3, 5));
 const initDate = {
   items: [
     {
-      _id: 1,
-      title: "Javascript 공부",
-      content: "열심히 하자",
-      done: true,
-      createdAt: getTime(-3, 5),
-      updatedAt: getTime(-3, 6),
-    },
-    {
-      _id: 2,
-      title: "Closure 자세히 공부",
-      content: "제일 어려웠음",
+      _id: 4,
+      title: "React 예습",
+      content: "수업 전에 기본 개념부터 미리 확인.",
       done: false,
-      createdAt: getTime(-3, 7),
-      updatedAt: getTime(-3, 9),
+      createdAt: getTime(-1, 12),
+      updatedAt: getTime(-1, 14),
     },
     {
       _id: 3,
@@ -33,12 +25,20 @@ const initDate = {
       updatedAt: getTime(-2, 5),
     },
     {
-      _id: 4,
-      title: "React 예습",
-      content: "수업 전에 기본 개념부터 미리 확인.",
+      _id: 2,
+      title: "Closure 자세히 공부",
+      content: "제일 어려웠음",
       done: false,
-      createdAt: getTime(-1, 12),
-      updatedAt: getTime(-1, 14),
+      createdAt: getTime(-3, 7),
+      updatedAt: getTime(-3, 9),
+    },
+    {
+      _id: 1,
+      title: "Javascript 공부",
+      content: "열심히 하자",
+      done: true,
+      createdAt: getTime(-3, 5),
+      updatedAt: getTime(-3, 6),
     }
   ],
   users: [],

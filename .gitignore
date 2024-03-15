@@ -2,6 +2,7 @@
 ins
 .history
 swagger-output.json
+db/todolist.json
 
 # Logs
 logs

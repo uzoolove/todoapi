@@ -42,7 +42,6 @@ const todo = {
       };
       items = _.drop(items, offset).slice(0, limit);
     }
-    items = items.reverse();
     db.write();
     return {items, pagination};
   },
@@ -62,7 +61,7 @@ const todo = {
       createdAt,
       updatedAt: createdAt,
     };
-    db.data.items.push(newTodo);
+    db.data.items.unshift(newTodo);
     db.write();
     return newTodo;
   },
