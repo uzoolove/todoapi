@@ -12,7 +12,7 @@ const initDate = {
       _id: 1,
       title: "Javascript 공부",
       content: "열심히 하자",
-      done: true,
+      done: true, 
       createdAt: getTime(-3, 5),
       updatedAt: getTime(-3, 6),
     },
