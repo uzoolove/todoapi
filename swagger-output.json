@@ -380,11 +380,11 @@
             },
             "createdAt": {
               "type": "string",
-              "example": "2024.03.15 20:59:10"
+              "example": "2024.03.15 21:14:00"
             },
             "updatedAt": {
               "type": "string",
-              "example": "2024.03.15 20:59:10"
+              "example": "2024.03.15 21:14:00"
             }
           }
         }
@@ -416,11 +416,11 @@
               },
               "createdAt": {
                 "type": "string",
-                "example": "2024.03.13 21:59:10"
+                "example": "2024.03.13 22:14:00"
               },
               "updatedAt": {
                 "type": "string",
-                "example": "2024.03.14 01:59:10"
+                "example": "2024.03.14 02:14:00"
               }
             }
           }
@@ -474,11 +474,11 @@
               },
               "createdAt": {
                 "type": "string",
-                "example": "2024.03.13 21:59:10"
+                "example": "2024.03.13 22:14:00"
               },
               "updatedAt": {
                 "type": "string",
-                "example": "2024.03.14 01:59:10"
+                "example": "2024.03.14 02:14:00"
               }
             }
           }
