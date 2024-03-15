@@ -66,8 +66,8 @@ const todo = {
     return newTodo;
   },
   // 할일 수정
-  update(_id, todo){
-    const index = _.findLastIndex(db.data.items, {_id});
+  update(todo){
+    const index = _.findLastIndex(db.data.items, { _id: todo._id });
     console.log(index);
     if(index < 0){
       return;

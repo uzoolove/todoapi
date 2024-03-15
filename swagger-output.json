@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
+    "version": "2.0.1",
     "title": "TODO API",
-    "description": "할일 목록 API Server입니다."
+    "description": "할일 목록 API Server입니다.<br><a href=\"https://github.com/uzoolove/todoapi/releases\" target=\"_blank\">변경 내역 확인</a>"
   },
   "host": "localhost:33020",
   "basePath": "/api",
@@ -29,6 +29,13 @@
         "summary": "할일 목록 조회",
         "description": "할일 목록을 조회합니다.<br>page, limit 파라미터는 선택사항이며 page를 전달하지 않으면 전체 할일 목록을 조회합니다.<br>page만 전달할 경우 limit 값은 기본 10으로 지정됩니다.",
         "parameters": [
+          {
+            "name": "keyword",
+            "required": false,
+            "in": "query",
+            "type": "string",
+            "description": "검색어"
+          },
           {
             "name": "page",
             "required": false,
@@ -87,6 +94,44 @@
             "description": "파라미터 검증 실패",
             "schema": {
               "$ref": "#/definitions/Error422"
+            }
+          },
+          "500": {
+            "description": "서버 에러",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Todo List"
+        ],
+        "summary": "할일 수정",
+        "description": "할일을 수정합니다. 할일을 수정한 후 수정된 할일을 반환합니다.<br>바디로 전달한 속성에 대해서만 수정되고 전달하지 않은 속성은 유지됩니다.",
+        "parameters": [
+          {
+            "name": "item",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ItemUpdateRequest"
+            },
+            "description": "수정할 속성만 담은 객체"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "schema": {
+              "$ref": "#/definitions/ItemResponse"
+            }
+          },
+          "404": {
+            "description": "요청한 자원을 찾을 수 없음",
+            "schema": {
+              "$ref": "#/definitions/Error404"
             }
           },
           "500": {
@@ -161,50 +206,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "성공",
-            "schema": {
-              "$ref": "#/definitions/ItemResponse"
-            }
-          },
-          "404": {
-            "description": "요청한 자원을 찾을 수 없음",
-            "schema": {
-              "$ref": "#/definitions/Error404"
-            }
-          },
-          "500": {
-            "description": "서버 에러",
-            "schema": {
-              "$ref": "#/definitions/Error500"
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Todo List"
-        ],
-        "summary": "할일 수정",
-        "description": "할일을 수정합니다. 할일을 수정한 후 수정된 할일을 반환합니다.<br>바디로 전달한 속성에 대해서만 수정되고 전달하지 않은 속성은 유지됩니다.",
-        "parameters": [
-          {
-            "name": "_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "item",
-            "required": true,
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/ItemUpdateRequest"
-            },
-            "description": "수정할 속성만 담은 객체"
           }
         ],
         "responses": {
@@ -324,6 +325,10 @@
     "ItemUpdateRequest": {
       "type": "object",
       "properties": {
+        "_id": {
+          "type": "number",
+          "example": 3
+        },
         "title": {
           "type": "string",
           "example": "TodoList 프로젝트 완성"
@@ -375,11 +380,11 @@
             },
             "createdAt": {
               "type": "string",
-              "example": "2024.03.15 19:53:35"
+              "example": "2024.03.15 20:11:25"
             },
             "updatedAt": {
               "type": "string",
-              "example": "2024.03.15 19:53:35"
+              "example": "2024.03.15 20:11:25"
             }
           }
         }
@@ -411,11 +416,11 @@
               },
               "createdAt": {
                 "type": "string",
-                "example": "2024.03.13 20:53:35"
+                "example": "2024.03.13 21:11:25"
               },
               "updatedAt": {
                 "type": "string",
-                "example": "2024.03.14 00:53:35"
+                "example": "2024.03.14 01:11:25"
               }
             }
           }
@@ -469,11 +474,11 @@
               },
               "createdAt": {
                 "type": "string",
-                "example": "2024.03.13 20:53:35"
+                "example": "2024.03.13 21:11:25"
               },
               "updatedAt": {
                 "type": "string",
-                "example": "2024.03.14 00:53:35"
+                "example": "2024.03.14 01:11:25"
               }
             }
           }

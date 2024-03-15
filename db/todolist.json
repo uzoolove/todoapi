@@ -18,11 +18,11 @@
     },
     {
       "_id": 3,
-      "title": "Promise 복습",
-      "content": "async/await도 같이 공부",
+      "title": "밥먹기",
+      "content": "20분 남았음ㅋㅋㅋ",
       "done": false,
       "createdAt": "2024.03.13 20:53:38",
-      "updatedAt": "2024.03.14 00:53:38"
+      "updatedAt": "2024.03.15 20:11:42"
     },
     {
       "_id": 4,

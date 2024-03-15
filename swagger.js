@@ -20,7 +20,7 @@ const options = {
   info: {
     version: process.env.API_VERSION,
     title: 'TODO API', 
-    description: '할일 목록 API Server입니다.', 
+    description: '할일 목록 API Server입니다.<br><a href="https://github.com/uzoolove/todoapi/releases" target="_blank">변경 내역 확인</a>', 
   },
   host: process.env.API_HOST,
   schemes: [process.env.API_PROTOCOL],
@@ -59,6 +59,7 @@ const options = {
       content: '이번주에 진핼항 수업 내용'
     },
     ItemUpdateRequest: {
+      _id: 3,
       title: 'TodoList 프로젝트 완성',
       content: '이번주에 진행할 수업 내용',
       done: true
