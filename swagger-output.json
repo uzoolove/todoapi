@@ -96,6 +96,56 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Todo List"
+        ],
+        "summary": "할일 삭제",
+        "description": "할일을 삭제합니다.",
+        "parameters": [
+          {
+            "name": "_id",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ItemDeleteRequest"
+            },
+            "description": "삭제할 id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "required": [
+                "ok"
+              ],
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "요청한 자원을 찾을 수 없음",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "서버 에러",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
       }
     },
     "/todolist/{_id}": {
@@ -162,53 +212,6 @@
             "description": "성공",
             "schema": {
               "$ref": "#/definitions/ItemResponse"
-            }
-          },
-          "404": {
-            "description": "요청한 자원을 찾을 수 없음",
-            "schema": {
-              "$ref": "#/definitions/Error404"
-            }
-          },
-          "500": {
-            "description": "서버 에러",
-            "schema": {
-              "$ref": "#/definitions/Error500"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Todo List"
-        ],
-        "summary": "할일 삭제",
-        "description": "할일을 삭제합니다.",
-        "parameters": [
-          {
-            "name": "_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "성공",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "ok": {
-                  "type": "number",
-                  "example": 1
-                }
-              },
-              "required": [
-                "ok"
-              ],
-              "xml": {
-                "name": "main"
-              }
             }
           },
           "404": {
@@ -335,6 +338,15 @@
         }
       }
     },
+    "ItemDeleteRequest": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "number",
+          "example": 3
+        }
+      }
+    },
     "ItemResponse": {
       "type": "object",
       "properties": {
@@ -363,11 +375,11 @@
             },
             "createdAt": {
               "type": "string",
-              "example": "2024.03.02 13:36:22"
+              "example": "2024.03.15 19:53:35"
             },
             "updatedAt": {
               "type": "string",
-              "example": "2024.03.02 13:36:22"
+              "example": "2024.03.15 19:53:35"
             }
           }
         }
@@ -399,11 +411,11 @@
               },
               "createdAt": {
                 "type": "string",
-                "example": "2024.02.29 14:36:22"
+                "example": "2024.03.13 20:53:35"
               },
               "updatedAt": {
                 "type": "string",
-                "example": "2024.02.29 18:36:22"
+                "example": "2024.03.14 00:53:35"
               }
             }
           }
@@ -457,11 +469,11 @@
               },
               "createdAt": {
                 "type": "string",
-                "example": "2024.02.29 14:36:22"
+                "example": "2024.03.13 20:53:35"
               },
               "updatedAt": {
                 "type": "string",
-                "example": "2024.02.29 18:36:22"
+                "example": "2024.03.14 00:53:35"
               }
             }
           }

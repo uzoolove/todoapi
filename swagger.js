@@ -63,6 +63,9 @@ const options = {
       content: '이번주에 진행할 수업 내용',
       done: true
     },
+    ItemDeleteRequest: {
+      _id: 3
+    },
     ItemResponse: {
       ok: 1,
       item: {

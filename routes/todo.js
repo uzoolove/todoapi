@@ -10,7 +10,14 @@ router.get('/todolist', function(req, res, next) {
   // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 목록 조회'
   // #swagger.description = '할일 목록을 조회합니다.<br>page, limit 파라미터는 선택사항이며 page를 전달하지 않으면 전체 할일 목록을 조회합니다.<br>page만 전달할 경우 limit 값은 기본 10으로 지정됩니다.'
+  
   /* 
+    #swagger.parameters['keyword'] = {
+      required: 'false',
+      in: 'query',
+      type: 'string',
+      description: '검색어(제목과 내용에서 검색)'
+    },
     #swagger.parameters['page'] = {
       required: 'false',
       in: 'query',
