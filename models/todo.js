@@ -27,6 +27,9 @@ const todo = {
 
     // content 속성 제거
     items = items.map(item => _.omit(item, 'content'));
+
+    // _id의 내림차순 정렬
+    items = _.sortBy(items, item => -item._id);
     
     let pagination = {};
     if(page){
@@ -61,7 +64,7 @@ const todo = {
       createdAt,
       updatedAt: createdAt,
     };
-    db.data.items.unshift(newTodo);
+    db.data.items.push(newTodo);
     db.write();
     return newTodo;
   },
