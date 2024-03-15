@@ -9,13 +9,19 @@
     ]
   },
   "scripts": {
-    "prestart": "node ./swagger.js",
-    "start": "nodemon ./bin/www.js"
+    "build:dev": "cross-env NODE_ENV=development node -r dotenv/config ./swagger.js",
+    "build:prod": "cross-env NODE_ENV=production node -r dotenv/config ./swagger.js",
+    "start:dev": "cross-env NODE_ENV=development node -r dotenv/config ./bin/www.js",
+    "start:prod": "cross-env NODE_ENV=production node -r dotenv/config ./bin/www.js",
+    "dev": "npm run build:dev & npm run start:dev",
+    "start": "npm run build:prod & npm run start:prod"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "debug": "~2.6.9",
+    "dotenv": "^16.4.5",
     "express": "~4.16.1",
     "express-validator": "^7.0.1",
     "lodash": "^4.17.21",

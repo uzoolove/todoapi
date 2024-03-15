@@ -180,11 +180,21 @@ router.delete('/todolist/init', async function(req, res, next) {
 });
 
 // 할일 삭제
-router.delete('/todolist/:_id', function(req, res, next) {
+router.delete('/todolist', function(req, res, next) {
   // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 삭제'
   // #swagger.description = '할일을 삭제합니다.'
+  
   /* 
+    #swagger.parameters['_id'] = {
+      required: 'true',
+      in: 'body',
+      schema: {
+        $ref: '#/definitions/ItemDeleteRequest'
+      },
+      description: '삭제할 id'
+    },
+
     #swagger.responses[200] = {
       description: '성공',
       schema: { $ok: 1 }
@@ -199,7 +209,7 @@ router.delete('/todolist/:_id', function(req, res, next) {
     }
   */
   try{
-    const result = model.remove(Number(req.params._id));
+    const result = model.remove(Number(req.body._id));
     if(result > 0){
       res.json({ok: 1});
     }else{

@@ -8,16 +8,16 @@
 * Open 선택
 
 ## 프로젝트 구조
-* api 폴더: node.js로 개발된 api 서버 프로그램
-  - DB: lowdb(JSON 파일 기반 로컬 DB. 따로 설치할 필요 없이 프로젝트에 내장되어 있음)
+* API 서버: node.js의 express 기반으로 개발
+* DB: lowdb(JSON 파일 기반 로컬 DB. 따로 설치할 필요 없이 프로젝트에 내장되어 있음)
 
 ## api 서버 구동
 * 프로젝트 루트에서 실행
 ```
 cd api
 npm i
-npm start
+npm run dev
 ```
 
 ## api 문서 확인
-* http://localhost:33088/apidocs
+* http://localhost:33020/apidocs

@@ -1,3 +1,14 @@
+import dotenv from 'dotenv';
+
+// 기본 .env 파일 로딩(package.json에서 로딩함)
+// dotenv.config({ path: '.env' });
+// 환경별 .env 파일 로딩
+console.info('NODE_ENV', process.env.NODE_ENV);
+if (process.env.NODE_ENV) {
+  dotenv.config({ override: true, path: `.env.${process.env.NODE_ENV}` });
+}
+
+
 import swaggerAutogen from 'swagger-autogen';
 import moment from 'moment';
 
@@ -7,12 +18,12 @@ function getTime(days = 0, hours = 0) {
 
 const options = {
   info: {
-    version: '1.0.0',
+    version: process.env.API_VERSION,
     title: 'TODO API', 
     description: '할일 목록 API Server입니다.', 
   },
-  host: 'localhost:33088',
-  schemes: ['http'],
+  host: process.env.API_HOST,
+  schemes: [process.env.API_PROTOCOL],
   basePath: '/api',
   tags: [
     {
