@@ -82,7 +82,7 @@ router.post('/todolist', [
     const result = validationResult(req);
     if(result.isEmpty()){
       if(req.body.saveIP){
-        req.body.ip = req.ip;
+        req.body.ip = req.headers['x-forwarded-for'];
       }
       delete req.body.saveIP;
       const item = model.create(req.body);
