@@ -81,6 +81,10 @@ router.post('/todolist', [
   try{
     const result = validationResult(req);
     if(result.isEmpty()){
+      if(req.body.saveIP){
+        req.body.ip = req.ip;
+      }
+      delete req.body.saveIP;
       const item = model.create(req.body);
       res.json({ok: 1, item});
     }else{
