@@ -1,12 +1,12 @@
 import { body, validationResult } from 'express-validator';
 
-import model from '../models/todo.js';
+import { list, findById, create, update, remove, init } from '../models/todo.js';
 import express from 'express';
 
 const router = express.Router();
 
 // 할일 목록 조회
-router.get('/todolist', function(req, res, next) {
+router.get('/todolist', async function(req, res, next) {
   // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 목록 조회'
   // #swagger.description = '할일 목록을 조회합니다.<br>page, limit 파라미터는 선택사항이며 page를 전달하지 않으면 전체 할일 목록을 조회합니다.<br>page만 전달할 경우 limit 값은 기본 10으로 지정됩니다.'
@@ -40,7 +40,7 @@ router.get('/todolist', function(req, res, next) {
     }
   */
   try{
-    const result = model.list(req.query);
+    const result = await list(req.query);
     res.json({ok: 1, ...result});
   }catch(err){
     next(err);
@@ -51,7 +51,7 @@ router.get('/todolist', function(req, res, next) {
 router.post('/todolist', [
   body('title').trim().notEmpty(),
   body('content').trim().notEmpty(),
-], function(req, res, next) {
+], async function(req, res, next) {
   // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 등록'
   // #swagger.description = '할일을 등록합니다.<br>title, content를 전달하면 할일을 등록한 후 등록된 할일을 반환합니다.'
@@ -85,7 +85,7 @@ router.post('/todolist', [
         req.body.ip = req.headers['x-forwarded-for'];
       }
       delete req.body.saveIP;
-      const item = model.create(req.body);
+      const item = await create(req.body);
       res.json({ok: 1, item});
     }else{
       const error = new Error(`"${result.errors[0].path}" 항목은 필수입니다.`);
@@ -98,7 +98,7 @@ router.post('/todolist', [
 });
 
 // 할일 상세 조회
-router.get('/todolist/:_id', function(req, res, next) {
+router.get('/todolist/:_id', async function(req, res, next) {
   // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 상세 조회'
   // #swagger.description = '할일 상세 정보를 조회합니다.'
@@ -117,7 +117,7 @@ router.get('/todolist/:_id', function(req, res, next) {
     }
   */
   try{
-    const item = model.findById(Number(req.params._id));
+    const item = await findById(Number(req.params._id));
     if(item){
       res.json({ok: 1, item});
     }else{
@@ -129,7 +129,7 @@ router.get('/todolist/:_id', function(req, res, next) {
 });
 
 // 할일 수정
-router.patch('/todolist/:_id', function(req, res, next) {
+router.patch('/todolist/:_id', async function(req, res, next) {
   // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 수정'
   // #swagger.description = '할일을 수정합니다. 할일을 수정한 후 수정된 할일을 반환합니다.<br>바디로 전달한 속성에 대해서만 수정되고 전달하지 않은 속성은 유지됩니다.'
@@ -156,7 +156,7 @@ router.patch('/todolist/:_id', function(req, res, next) {
     }
   */
   try{
-    const item = model.update(Number(req.params._id), req.body);
+    const item = await update(Number(req.params._id), req.body);
     if(item){
       res.json({ok: 1, item});
     }else{
@@ -183,7 +183,7 @@ router.delete('/todolist/init', async function(req, res, next) {
     }
   */
   try{
-    const result = await model.init();
+    const result = await init();
     res.json({ok: 1, ...result});
   }catch(err){
     next(err);
@@ -191,7 +191,7 @@ router.delete('/todolist/init', async function(req, res, next) {
 });
 
 // 할일 삭제
-router.delete('/todolist/:_id', function(req, res, next) {
+router.delete('/todolist/:_id', async function(req, res, next) {
   // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 삭제'
   // #swagger.description = '할일을 삭제합니다.'
@@ -211,7 +211,7 @@ router.delete('/todolist/:_id', function(req, res, next) {
     }
   */
   try{
-    const result = model.remove(Number(req.params._id));
+    const result = await remove(Number(req.params._id));
     if(result > 0){
       res.json({ok: 1});
     }else{

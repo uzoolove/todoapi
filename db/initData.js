@@ -4,8 +4,6 @@ function getTime(days = 0, hours = 0) {
   return moment().add(days, 'd').add(hours, 'h').format('YYYY.MM.DD HH:mm:ss');
 }
 
-console.log(getTime(-3, 5));
-
 const initDate = {
   items: [
     {
