@@ -6,7 +6,7 @@ function getTime(days = 0, hours = 0) {
 
 console.log(getTime(-3, 5));
 
-const initDate = {
+const initData = {
   items: [
     {
       _id: 1,
@@ -48,4 +48,4 @@ const initDate = {
   }
 };
 
-export default initDate;
+export default initData;
