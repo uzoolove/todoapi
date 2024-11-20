@@ -20,4 +20,8 @@ npm run dev
 ```
 
 ## api 문서 확인
+### 배포
+* https://todo-api.fesp.shop/apidocs
+
+### 로컬
 * http://localhost:33020/apidocs
