@@ -221,11 +221,17 @@ router.delete('/todolist/:_id', async function(req, res, next) {
     }
   */
   try{
-    const result = await remove(Number(req.params._id));
-    if(result > 0){
-      res.json({ok: 1});
+    if(req.body.pwd === process.env.INIT_PWD){
+      const result = await remove(Number(req.params._id));
+      if(result > 0){
+        res.json({ok: 1});
+      }else{
+        next();
+      }
     }else{
-      next();
+      const error = new Error(`관리자 비밀번호가 맞지 않습니다.`);
+      error.status = 422;
+      next(error);
     }
   }catch(err){
     next(err);
