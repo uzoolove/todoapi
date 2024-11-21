@@ -183,6 +183,11 @@ router.delete('/todolist/init', async function(req, res, next) {
   // #swagger.summary  = '데이터 베이스 초기화'
   // #swagger.description = '데이터 베이스를 초기화 합니다.<br>기존 데이터는 모두 삭제된 후 할일 목록 4개가 추가되고 추가된 할일 목록을 반환합니다.'
   /* 
+    #swagger.parameters['pwd'] = {
+      required: 'true',
+      in: 'body',
+      description: '관리자 비밀번호'
+    },
     #swagger.responses[200] = {
       description: '성공',
       schema: { $ref: '#/definitions/ListWithoutPaginationResponse' }
