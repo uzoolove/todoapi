@@ -58,6 +58,9 @@ const options = {
       title: 'TodoList 프로젝투 완성',
       content: '이번주에 진핼항 수업 내용'
     },
+    DBInitRequest: {
+      pwd: 'adminpassword',
+    },
     ItemUpdateRequest: {
       title: 'TodoList 프로젝트 완성',
       content: '이번주에 진행할 수업 내용',

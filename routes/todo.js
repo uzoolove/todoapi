@@ -187,7 +187,7 @@ router.delete('/todolist/init', async function(req, res, next) {
       required: 'true',
       in: 'body',
       schema: {
-        type: 'string'
+        $ref: '#/definitions/DBInitRequest'
       },
       description: '관리자 비밀번호'
     },
