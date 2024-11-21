@@ -183,7 +183,7 @@ router.delete('/todolist/init', async function(req, res, next) {
   // #swagger.summary  = '데이터 베이스 초기화'
   // #swagger.description = '데이터 베이스를 초기화 합니다.<br>기존 데이터는 모두 삭제된 후 할일 목록 4개가 추가되고 추가된 할일 목록을 반환합니다.'
   /* 
-    #swagger.parameters['pwd'] = {
+    #swagger.parameters['item'] = {
       required: 'true',
       in: 'body',
       schema: {
@@ -201,8 +201,14 @@ router.delete('/todolist/init', async function(req, res, next) {
     }
   */
   try{
-    const result = await init();
-    res.json({ok: 1, ...result});
+    if(req.body.pwd === process.env.INIT_PWD){
+      const result = await init();
+      res.json({ok: 1, ...result});
+    }else{
+      const error = new Error(`관리자 비밀번호가 맞지 않습니다.`);
+      error.status = 422;
+      next(error);
+    }
   }catch(err){
     next(err);
   }
@@ -229,17 +235,11 @@ router.delete('/todolist/:_id', async function(req, res, next) {
     }
   */
   try{
-    if(req.body.pwd === process.env.INIT_PWD){
-      const result = await remove(Number(req.params._id));
-      if(result > 0){
-        res.json({ok: 1});
-      }else{
-        next();
-      }
+    const result = await remove(Number(req.params._id));
+    if(result > 0){
+      res.json({ok: 1});
     }else{
-      const error = new Error(`관리자 비밀번호가 맞지 않습니다.`);
-      error.status = 422;
-      next(error);
+      next();
     }
   }catch(err){
     next(err);
