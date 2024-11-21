@@ -186,6 +186,9 @@ router.delete('/todolist/init', async function(req, res, next) {
     #swagger.parameters['pwd'] = {
       required: 'true',
       in: 'body',
+      schema: {
+        $ref: '#/definitions/DBInitRequest'
+      },
       description: '관리자 비밀번호'
     },
     #swagger.responses[200] = {
