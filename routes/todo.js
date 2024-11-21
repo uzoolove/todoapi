@@ -81,7 +81,7 @@ router.post('/todolist', [
   try{
     const result = validationResult(req);
     if(result.isEmpty()){
-      if(req.body.saveIP){
+      if(req.body.saveIP){ // "ip 저장"에 체크했을 경우 프록시 주소가 아닌 실제 클라이언트 IP 추출
         req.body.ip = req.headers['x-forwarded-for'];
       }
       delete req.body.saveIP;
@@ -129,7 +129,10 @@ router.get('/todolist/:_id', async function(req, res, next) {
 });
 
 // 할일 수정
-router.patch('/todolist/:_id', async function(req, res, next) {
+router.patch('/todolist/:_id', [
+  body('title').trim().notEmpty(),
+  body('content').trim().notEmpty(),
+], async function(req, res, next) {
   // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 수정'
   // #swagger.description = '할일을 수정합니다. 할일을 수정한 후 수정된 할일을 반환합니다.<br>바디로 전달한 속성에 대해서만 수정되고 전달하지 않은 속성은 유지됩니다.'
@@ -156,11 +159,18 @@ router.patch('/todolist/:_id', async function(req, res, next) {
     }
   */
   try{
-    const item = await update(Number(req.params._id), req.body);
-    if(item){
-      res.json({ok: 1, item});
+    const result = validationResult(req);
+    if(result.isEmpty()){
+      const item = await update(Number(req.params._id), req.body);
+      if(item){
+        res.json({ok: 1, item});
+      }else{
+        next();
+      }
     }else{
-      next();
+      const error = new Error(`"${result.errors[0].path}" 항목은 필수입니다.`);
+      error.status = 422;
+      next(error);
     }
   }catch(err){
     next(err);
