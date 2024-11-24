@@ -129,10 +129,7 @@ router.get('/todolist/:_id', async function(req, res, next) {
 });
 
 // 할일 수정
-router.patch('/todolist/:_id', [
-  body('title').trim().notEmpty(),
-  body('content').trim().notEmpty(),
-], async function(req, res, next) {
+router.patch('/todolist/:_id', async function(req, res, next) {
   // #swagger.tags = ['Todo List']
   // #swagger.summary  = '할일 수정'
   // #swagger.description = '할일을 수정합니다. 할일을 수정한 후 수정된 할일을 반환합니다.<br>바디로 전달한 속성에 대해서만 수정되고 전달하지 않은 속성은 유지됩니다.'
@@ -159,18 +156,11 @@ router.patch('/todolist/:_id', [
     }
   */
   try{
-    const result = validationResult(req);
-    if(result.isEmpty()){
-      const item = await update(Number(req.params._id), req.body);
-      if(item){
-        res.json({ok: 1, item});
-      }else{
-        next();
-      }
+    const item = await update(Number(req.params._id), req.body);
+    if(item){
+      res.json({ok: 1, item});
     }else{
-      const error = new Error(`"${result.errors[0].path}" 항목은 필수입니다.`);
-      error.status = 422;
-      next(error);
+      next();
     }
   }catch(err){
     next(err);
