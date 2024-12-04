@@ -21,7 +21,8 @@ app.use(
   cors({
     origin: [
       /^https?:\/\/localhost/,
-      /^https?:\/\/127.0.0.1/
+      /^https?:\/\/127.0.0.1/,
+      /.*fesp\.shop$/,
     ],
     credentials: true,
   })
