@@ -3,6 +3,15 @@
 /**
  * Module dependencies.
  */
+import dotenv from 'dotenv';
+
+// 기본 .env 파일 로딩(package.json에서 로딩함)
+// dotenv.config({ path: '.env' });
+// 환경별 .env 파일 로딩
+console.info('NODE_ENV', process.env.NODE_ENV);
+if (process.env.NODE_ENV) {
+  dotenv.config({ override: true, path: `.env.${process.env.NODE_ENV}` });
+}
 
 import app from '../app.js';
 import http from 'node:http';
@@ -11,7 +20,7 @@ import http from 'node:http';
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '33088');
+var port = normalizePort(process.env.PORT || '33020');
 app.set('port', port);
 
 /**
@@ -81,5 +90,5 @@ function onError(error) {
  */
 
 function onListening() {
-  console.info('http://localhost:' + port);
+  console.info(process.env.API_DOC_URL);
 }
